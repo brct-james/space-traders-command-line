@@ -8,11 +8,14 @@ Install pipenv: `pip install --user pipenv`
 
 Source your profile: `source ~./profile`
 
-Run `launchdev.sh` and pipenv will handle installing dependencies
+Install dependencies: `pipenv install`
 
-## Changelog
+Run `launchdev.sh`
 
-### v0.0.3 - Threading & Live Commands
+## Changelog (click to expand)
+
+<details>
+<summary> Latest - v0.0.3 - Threading & Live Commands</summary>
 
 - Added threading
 - Command Queue now runs on a separate thread from main, user can enter their own commands into main
@@ -23,8 +26,10 @@ Run `launchdev.sh` and pipenv will handle installing dependencies
 - `printLevel` renamed to `printlv`
 - `:help` lists available plan commands and their functions
 - `:help <cmd>` functionality exists, no help text yet - see .starcommands on roadmap (doesn't check for non-existant commands)
+</details>
 
-### v0.0.2 - Preliminary command implementation
+<details>
+<summary>v0.0.2 - Preliminary command implementation</summary>
 
 - Read `.starplan` text files and parse out basic commands
 - - `# <comment>` Ignored
@@ -37,11 +42,14 @@ Run `launchdev.sh` and pipenv will handle installing dependencies
 - - - - `market` Specifies market data from location (good names, prices, quantity, etc.)
 - - - `ships` Specifies list of all owned ships
 - - - `ship` Specifies info about single ship
+    </details>
 
-### v0.0.1
+<details>
+<summary>v0.0.1</summary>
 
 - SpacePyTraders SDK installed, able to do basic query
 - Setup pipenv
+</details>
 
 ## Roadmap
 
@@ -76,3 +84,19 @@ Run `launchdev.sh` and pipenv will handle installing dependencies
 - space-opera: Allow for ship `groups` and `pools`
 - - `groups`: Ships that are grouped will all use the same plan (maybe include in base starscript)
 - - `pools`: Ships that are part of a pool can be dynamically assigned to certain plans conditionally. Ships can be a part of multiple pools but (maybe?) are only able to be active in one pool at a time
+
+### Research/Thoughts
+
+```
+Starcript:
+Maybe it is more of an intermediary for more advanced scripting
+	Like an SDK wrapping the lower level SDK
+		Can either edit a (not started) init plan to kick off their automation on script startup, and/or:
+		https://stackoverflow.com/questions/43861164/passing-data-between-separately-running-python-scripts
+		Use multiprocessing and a queue() or pipe(): https://stackoverflow.com/questions/8463008/multiprocessing-pipe-vs-queue/58015119#58015119
+    Which would also potentially be the route to go for integrating with space-opera
+
+Would a multiprocessing queue be a good substitute for like a redis cache of the most up-to-date data on ship locations and such? Need something that can handle multiple threads reading/writing simultaneously to it as they get/need info.
+
+Then space-opera is basically orchestrating starscript plans. Need a way for plans to request an external response and wait for it, as well as outputting info for space-opera conditionals... Plans need like... Events or something...
+```

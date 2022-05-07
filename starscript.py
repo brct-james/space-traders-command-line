@@ -16,7 +16,7 @@ logger.setLevel(level=logging.CRITICAL)
 # API Setup
 
 USERNAME = "Greenitthe"
-TOKEN = "c8283f54-c08f-4773-8c40-fc99b0071a19"
+TOKEN = "4be25691-9594-4595-8344-ae3078b4b9fa"
 
 api = client.Api(USERNAME, TOKEN)
 print("[GAME API STATUS]", api.game.get_game_status()['status'])
